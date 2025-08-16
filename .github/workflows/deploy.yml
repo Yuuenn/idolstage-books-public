@@ -66,7 +66,7 @@ jobs:
           git branch -M deploy
           git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git push -f origin deploy
-      - name: Deploy to remote via SSH
+      - name: Deploy to remote via SSH - public
         if: success()
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
@@ -78,12 +78,8 @@ jobs:
           # BASE: ${{ vars.DEPLOY_BASE }}
         run: |
           set -euo pipefail
-          echo "$DEPLOY_SSH_KEY" > deploy_key
-          chmod 600 deploy_key
-          # 建议把主机指纹加入 known_hosts
-          mkdir -p ~/.ssh
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
           ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
-
-          # 在远程机器上执行已安装的脚本（如果脚本路径不同，改成你的路径）
+          echo "$DEPLOY_SSH_KEY" > deploy_key && chmod 600 deploy_key
           ssh -i deploy_key "$DEPLOY_USER@$DEPLOY_HOST" \
-            "REPO='${REPO:-}' BRANCH='${BRANCH:-}' BASE='${BASE:-}' /usr/local/bin/update-vitepress.sh"
+            "SUBDIR='public' /usr/local/bin/update-vitepress.sh"
