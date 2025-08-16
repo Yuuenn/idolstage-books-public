@@ -81,6 +81,7 @@ jobs:
           echo "$DEPLOY_SSH_KEY" > deploy_key
           chmod 600 deploy_key
           # 建议把主机指纹加入 known_hosts
+          mkdir -p ~/.ssh
           ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
 
           # 在远程机器上执行已安装的脚本（如果脚本路径不同，改成你的路径）
