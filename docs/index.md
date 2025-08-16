@@ -35,5 +35,5 @@ features:
   - icon: ⚙
     title: 团队与工作人员专属访问
     details: 为 idolStage 成员与现场工作人员提供便捷、安全的内部资料与专属功能入口。
-    link: https://idols.love/books-go?id=idolstage
+    link: https://idols.love/go?id=books-idolstage
 ---
