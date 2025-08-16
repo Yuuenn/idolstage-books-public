@@ -1,0 +1,88 @@
+name: Build & Publish Dist
+on:
+  push:
+    branches: [ main ]   # 源代码主分支
+
+permissions:
+  contents: write        # 允许推送 deploy 分支
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 先装 pnpm，再启用 pnpm 缓存（否则找不到 store 路径）
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      # 生成 JSON（perm-manifest.json / sidebar.gen.json）
+      - name: Prebuild (generate manifests)
+        run: pnpm run docs:prebuild
+
+      # 构建 VitePress
+      - name: Build VitePress
+        run: pnpm run docs:build
+
+      # 准备发布负载：deploy/dist + 两个 JSON 放在 deploy 根
+      - name: Prepare deploy payload (dist + root JSON)
+        run: |
+          mkdir -p deploy/dist
+          cp -r docs/.vitepress/dist/* deploy/dist/
+
+          # JSON 放在 deploy 根，对应服务器 VP_DIR=/var/www/vitepress/
+          # cp docs/.vitepress/perm-manifest.json deploy/perm-manifest.json
+          # cp docs/.vitepress/sidebar.gen.json   deploy/sidebar.gen.json
+
+      # （可选）附带 artifact，方便手动下载审查
+      - uses: actions/upload-artifact@v4
+        with:
+          name: books-deploy
+          path: deploy
+
+      # 发布到 deploy 分支（覆盖式）
+      - name: Publish to deploy branch
+        run: |
+          cd deploy
+          git init
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "deploy: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git branch -M deploy
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git push -f origin deploy
+      - name: Deploy to remote via SSH
+        if: success()
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          # 可选覆盖，若不设则用脚本默认
+          # REPO: ${{ vars.DEPLOY_REPO }}
+          # BRANCH: ${{ vars.DEPLOY_BRANCH }}
+          # BASE: ${{ vars.DEPLOY_BASE }}
+        run: |
+          set -euo pipefail
+          echo "$DEPLOY_SSH_KEY" > deploy_key
+          chmod 600 deploy_key
+          # 建议把主机指纹加入 known_hosts
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+
+          # 在远程机器上执行已安装的脚本（如果脚本路径不同，改成你的路径）
+          ssh -i deploy_key "$DEPLOY_USER@$DEPLOY_HOST" \
+            "REPO='${REPO:-}' BRANCH='${BRANCH:-}' BASE='${BASE:-}' /usr/local/bin/update-vitepress.sh"

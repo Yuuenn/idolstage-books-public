@@ -1,0 +1,168 @@
+[
+  {
+    "text": "IdolStage 商品",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "IdolStage 商品",
+        "link": "/idolStage 商品/"
+      },
+      {
+        "text": "Intro",
+        "link": "/idolStage 商品/intro"
+      },
+      {
+        "text": "Test",
+        "link": "/idolStage 商品/test"
+      },
+      {
+        "text": "Intro",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "Intro",
+            "link": "/idolStage 商品/intro/"
+          },
+          {
+            "text": "Test",
+            "link": "/idolStage 商品/intro/test"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "IdolStage 团队档案",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "IdolStage 团队档案",
+        "link": "/idolStage 团队档案/"
+      },
+      {
+        "text": "Test",
+        "link": "/idolStage 团队档案/test"
+      }
+    ]
+  },
+  {
+    "text": "IdolStage 活动信息",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "IdolStage 活动信息",
+        "link": "/idolStage 活动信息/"
+      },
+      {
+        "text": "Intro",
+        "link": "/idolStage 活动信息/intro"
+      },
+      {
+        "text": "Test",
+        "link": "/idolStage 活动信息/test"
+      },
+      {
+        "text": "Intro",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "Intro",
+            "link": "/idolStage 活动信息/intro/"
+          },
+          {
+            "text": "Test",
+            "link": "/idolStage 活动信息/intro/test"
+          }
+        ]
+      },
+      {
+        "text": "测试",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "测试",
+            "link": "/idolStage 活动信息/测试/"
+          },
+          {
+            "text": "Test",
+            "link": "/idolStage 活动信息/测试/test"
+          },
+          {
+            "text": "测试   副本",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "测试   副本",
+                "link": "/idolStage 活动信息/测试/测试 - 副本/"
+              },
+              {
+                "text": "Test",
+                "link": "/idolStage 活动信息/测试/测试 - 副本/test"
+              },
+              {
+                "text": "测试   副本   副本",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "测试   副本   副本",
+                    "link": "/idolStage 活动信息/测试/测试 - 副本/测试 - 副本 - 副本/"
+                  },
+                  {
+                    "text": "Test",
+                    "link": "/idolStage 活动信息/测试/测试 - 副本/测试 - 副本 - 副本/test"
+                  },
+                  {
+                    "text": "测试   副本   副本   副本",
+                    "collapsed": true,
+                    "items": [
+                      {
+                        "text": "测试   副本   副本   副本",
+                        "link": "/idolStage 活动信息/测试/测试 - 副本/测试 - 副本 - 副本/测试 - 副本 - 副本 - 副本/"
+                      },
+                      {
+                        "text": "Test",
+                        "link": "/idolStage 活动信息/测试/测试 - 副本/测试 - 副本 - 副本/测试 - 副本 - 副本 - 副本/test"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "专栏：偶活与生活",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "专栏：偶活与生活",
+        "link": "/专栏：偶活与生活/"
+      },
+      {
+        "text": "Test",
+        "link": "/专栏：偶活与生活/test"
+      }
+    ]
+  },
+  {
+    "text": "我们提供的企划和服务",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "我们提供的企划和服务",
+        "link": "/我们提供的企划和服务/"
+      },
+      {
+        "text": "Test",
+        "link": "/我们提供的企划和服务/test"
+      }
+    ]
+  },
+  {
+    "text": "返回 偶活舞台：闪耀手册主页",
+    "link": "/"
+  }
+]
