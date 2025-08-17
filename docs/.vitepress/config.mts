@@ -24,6 +24,7 @@ export default defineConfig({
   description: '用这本手册更好地进行偶像活动吧！',
   lang: 'zh-CN',
   lastUpdated: true,
+  base:'/',
   themeConfig: {
     docFooter: { prev: '上一页', next: '下一页' },
     outline: { label: '本页目录' },
